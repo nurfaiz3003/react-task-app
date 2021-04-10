@@ -7,7 +7,7 @@ import Footer from './component/Footer';
 import About from './component/About';
 
 function App() {
-  const [showAddTask, setShowAddTask] = useState(true);
+  const [showAddTask, setShowAddTask] = useState(false);
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
@@ -77,14 +77,10 @@ function App() {
     setTasks(tasks.map((task) => task.id === id ? { ...task, reminder: data.reminder } : task));
   }
 
-  const setShow = () => {
-    setShowAddTask(!showAddTask);
-  }
-
   return (
     <Router>
       <div className="container">
-        <Header onAdd={setShow} showAdd={showAddTask} />
+        <Header onAdd={() => setShowAddTask(!showAddTask)} showAdd={showAddTask} />
         <Route path='/' exact render={(props) => (
           <>
             { showAddTask && <AddTask onAdd={addTask} />}
